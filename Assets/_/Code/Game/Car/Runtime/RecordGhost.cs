@@ -11,11 +11,13 @@ namespace Car.Runtime
         {
             public Vector3 Position;
             public Quaternion Rotation;
+            public float deltaTime;
             
-            public Data(Vector3 currentPosition, Quaternion currentRotation)
+            public Data(Vector3 currentPosition, Quaternion currentRotation, float timeElapsedSinceLastRecord)
             {
                 Position = currentPosition;
                 Rotation = currentRotation;
+                deltaTime = timeElapsedSinceLastRecord;
             }
         }
 
@@ -24,11 +26,41 @@ namespace Car.Runtime
         #endregion
 
 
+        #region Unity API
+
+        private void Awake()
+        {
+            _currentTime = 0;
+            _recordInterval = 0.05f;
+            Data startFrame = GetFrameRecord();
+            DataList.Add(startFrame);
+        }
+
+        private void Update()
+        {
+            RegisterGhostFrames();
+            Debug.Log(DataList.Count);
+        }
+
+        #endregion
+
+
         #region Main API
 
-        private void SaveFrame()
+        private Data GetFrameRecord()
         {
-            Data currentFrame = new Data(transform.position, transform.rotation);
+            return new Data(transform.position, transform.rotation,_currentTime);
+        }
+
+        private void RegisterGhostFrames()
+        {
+            _currentTime += Time.deltaTime;
+
+            if(_currentTime >= _recordInterval)
+            {
+                DataList.Add(GetFrameRecord());
+                _currentTime = 0;
+            }
         }
 
         #endregion
@@ -36,7 +68,8 @@ namespace Car.Runtime
 
         #region Private and Protected
 
-        private int _currentIndex;
+        private float _recordInterval;
+        private float _currentTime;
 
         #endregion
     }
