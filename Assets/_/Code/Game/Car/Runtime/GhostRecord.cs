@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Car.Runtime
 {
-    public class RecordGhost : MonoBehaviour
+    public class GhostRecord : MonoBehaviour
     {
         #region Public
 

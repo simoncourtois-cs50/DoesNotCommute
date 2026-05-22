@@ -1,11 +1,10 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Car.Runtime
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class Movement : MonoBehaviour
+    public class PlayerMovement : MonoBehaviour
     {
         #region Unity API
 
@@ -13,7 +12,7 @@ namespace Car.Runtime
         {
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.linearDamping = 1.5f;
-            _rigidbody.angularDamping = 2.5f;
+            _rigidbody.angularDamping = 3.5f;
             _rigidbody.mass = 10f;
             _moveAction = InputSystem.actions.FindAction("Move");
             _currentSpeed = 0;
@@ -47,7 +46,6 @@ namespace Car.Runtime
         private void TurnCar()
         {
             _rigidbody.AddTorque(Vector3.up * _moveValue * _rotationSpeed);
-            Debug.Log($"Force appliquée : {Vector3.up * _moveValue * _rotationSpeed} | Input Direction : {_moveValue}");
         }
 
         #endregion
