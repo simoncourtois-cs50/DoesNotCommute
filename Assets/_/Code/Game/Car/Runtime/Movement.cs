@@ -18,7 +18,13 @@ namespace Car.Runtime
             _moveAction = InputSystem.actions.FindAction("Move");
             _currentSpeed = 0;
         }
-        private void LateUpdate()
+
+        private void Update()
+        {
+            _moveValue = _moveAction.ReadValue<Vector2>().x;
+        }
+
+        private void FixedUpdate()
         {
             MoveForward();
             TurnCar();
@@ -33,15 +39,15 @@ namespace Car.Runtime
         {
             if(_currentSpeed < _maxSpeed)
             {
-                _currentSpeed += _accelerationValue * Time.deltaTime;
+                _currentSpeed += _accelerationValue * Time.fixedDeltaTime;
             }
             _rigidbody.AddForce(transform.forward * _currentSpeed);
         }
         
         private void TurnCar()
         {
-            float _movevalue = _moveAction.ReadValue<Vector2>().x;
-            _rigidbody.AddTorque(Vector3.up * _movevalue * _rotationSpeed);
+            _rigidbody.AddTorque(Vector3.up * _moveValue * _rotationSpeed);
+            Debug.Log($"Force appliquée : {Vector3.up * _moveValue * _rotationSpeed} | Input Direction : {_moveValue}");
         }
 
         #endregion
@@ -50,16 +56,17 @@ namespace Car.Runtime
         #region private and protected
 
         [Header("Parameters")]
-        [Range(80f,100f),SerializeField]
+        [Range(400,500),SerializeField]
         private float _maxSpeed;
-        [Range(20f,40f),SerializeField]
+        [Range(200,400f),SerializeField]
         private float _accelerationValue;
-        [Range(80f,100f), SerializeField]
+        [Range(400,500), SerializeField]
         private float _rotationSpeed;
 
         private float _currentSpeed;
         private Rigidbody _rigidbody;
         private InputAction _moveAction;
+        private float _moveValue;
 
         #endregion
     }

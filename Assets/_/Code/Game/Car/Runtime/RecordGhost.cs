@@ -39,7 +39,6 @@ namespace Car.Runtime
         private void Update()
         {
             RegisterGhostFrames();
-            Debug.Log(DataList.Count);
         }
 
         #endregion
