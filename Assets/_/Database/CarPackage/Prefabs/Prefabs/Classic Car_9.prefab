@@ -189,9 +189,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4593789793972253516}
+  - component: {fileID: 4519148403599038125}
+  - component: {fileID: 6340016412529874294}
+  - component: {fileID: 2134997232440986508}
   - component: {fileID: 607899018693508329}
   - component: {fileID: 3425910720483035171}
-  - component: {fileID: 2023311903206475556}
+  - component: {fileID: 7009083898749778704}
+  - component: {fileID: 293400107527580914}
   m_Layer: 0
   m_Name: Classic Car_9
   m_TagString: Untagged
@@ -207,7 +211,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3786326439804512758}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -218,6 +222,45 @@ Transform:
   - {fileID: 457560455329973810}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4519148403599038125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3786326439804512758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e538abdd6b30440ad55b19784e59fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Car.Runtime::Car.Runtime.Movement
+  _maxSpeed: 420
+  _accelerationValue: 200
+  _rotationSpeed: 400
+--- !u!114 &6340016412529874294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3786326439804512758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afcb25d4221a3d641b88fd16e63218af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Car.Runtime::Car.Runtime.RecordGhost
+--- !u!114 &2134997232440986508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3786326439804512758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4059d80f1043abc41b3fcec1c24d6a4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Car.Runtime::Car.Runtime.GhostMotion
 --- !u!33 &607899018693508329
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -276,8 +319,35 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2023311903206475556
-BoxCollider:
+--- !u!54 &7009083898749778704
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3786326439804512758}
+  serializedVersion: 5
+  m_Mass: 10
+  m_LinearDamping: 1.5
+  m_AngularDamping: 2.5
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 64
+  m_CollisionDetection: 0
+--- !u!136 &293400107527580914
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -294,9 +364,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.0213947, y: 1.4970077, z: 4.9667635}
-  m_Center: {x: 0, y: 0.7795493, z: -0.16288757}
+  serializedVersion: 2
+  m_Radius: 0.7985884
+  m_Height: 5.1482224
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.7905115, z: -0.0721581}
 --- !u!1 &7206409014443661822
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,13 +395,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7206409014443661822}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.7804947, y: 0.39182425, z: -1.3806152}
+  m_LocalRotation: {x: 0.018091127, y: -0, z: -0, w: -0.99983644}
+  m_LocalPosition: {x: 0.7804947, y: 0.3918249, z: -1.3806152}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4593789793972253516}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 357.927, y: 0, z: 0}
 --- !u!33 &2348862912069725569
 MeshFilter:
   m_ObjectHideFlags: 0
