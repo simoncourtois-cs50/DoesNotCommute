@@ -11,6 +11,7 @@ namespace Car.Runtime
         {
             if (!TryGetComponent<GhostRecord>(out _ghostRecord)) return;
             _currentIndex = 0;
+            _rigidbody = GetComponent<Rigidbody>();
         }
 
         private void Update()
@@ -27,6 +28,7 @@ namespace Car.Runtime
         public void InitializeGhost()
         {
             GetPathRecordsList();
+            _rigidbody.isKinematic = true;
         }
 
         public void StartMotion()
@@ -98,7 +100,8 @@ namespace Car.Runtime
         
         private IReadOnlyList<GhostRecord.PathData> _pathRecordsList;
         private GhostRecord _ghostRecord;
-        
+        private Rigidbody _rigidbody;
+
         #endregion
     }
 }
