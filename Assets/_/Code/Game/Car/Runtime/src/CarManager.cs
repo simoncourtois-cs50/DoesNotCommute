@@ -20,15 +20,6 @@ namespace Car.Runtime
                 carControl.OnDestinationReached += HandleOnDestinationReached;
                 _carsPool[i] = car;
             }
-
-            _startGame = true;
-        }
-
-        private void Update()
-        {
-            if (!_startGame) return;
-            ActivateCarControl();
-            _startGame = false;
         }
 
         #endregion
@@ -36,8 +27,9 @@ namespace Car.Runtime
         
         #region Main API
 
-        private void ActivateCarControl()
+        public void ActivateCarControl()
         {
+            
             if (_currentCarControledIndex >= _carsPool.Length) return;
             
             GameObject currentControlledCar = _carsPool[_currentCarControledIndex];
@@ -49,27 +41,30 @@ namespace Car.Runtime
             _currentGhostRecorder.StartRecording();
             
             if (!currentControlledCar.TryGetComponent<GhostMotion>(out _currentCarGhost)) return;
-            
             ActivateGhosts();
         }
 
         private void HandleOnDestinationReached()
         {
+            _carsPool[_currentCarControledIndex].SetActive(false);
             _currentPlayerController.StopPlayerControl();
             _currentGhostRecorder.StopRecording();
             _currentCarGhost.InitializeGhost();
             StopGhosts();
             
             _currentCarControledIndex++;
-            ActivateCarControl();
+            
+            
+            _OnPlayEnd?.Invoke();
         }
 
         private void ActivateGhosts()
         {
             if (_currentCarControledIndex <= 0) return;
-            for (int i = _currentCarControledIndex-1; i >= 0; i--)
+            for (int i = _currentCarControledIndex - 1; i >= 0; i--)
             {
                 if (!_carsPool[i].TryGetComponent<GhostMotion>(out GhostMotion ghost)) return;
+                ghost.gameObject.SetActive(true);
                 ghost.StartMotion();
             }
         }
@@ -77,9 +72,10 @@ namespace Car.Runtime
         private void StopGhosts()
         {
             if (_currentCarControledIndex <= 0) return;
-            for (int i = _currentCarControledIndex-1; i > 0; i--)
+            for (int i = _currentCarControledIndex - 1; i >= 0; i--)
             {
                 if (!_carsPool[i].TryGetComponent<GhostMotion>(out GhostMotion ghost)) return;
+                ghost.gameObject.SetActive(false);
                 ghost.StopMotion();
             }
         }
@@ -101,8 +97,8 @@ namespace Car.Runtime
         //TODO : Protect the minimum possible = _carQuantity;
         [SerializeField] private Transform[] _originCollection;
         [SerializeField] private Collider[] _destinationCollection;
-        //TODO : Optimize bool maybe with a gamemanager
-        private bool _startGame;
+        
+        public event Action _OnPlayEnd;
 
         #endregion
     }

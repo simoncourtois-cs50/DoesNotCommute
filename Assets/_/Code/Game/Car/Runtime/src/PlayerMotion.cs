@@ -36,7 +36,7 @@ namespace Car.Runtime
         }
 
         private void FixedUpdate()
-        {
+        { ;
             if (!_enablePlayerControl) return;
             MoveForward();
             TurnCar();

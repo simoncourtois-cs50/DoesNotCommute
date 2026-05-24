@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Car.Runtime
 {
+    [RequireComponent(typeof(Rigidbody),typeof(GhostRecord))]
     public class GhostMotion : MonoBehaviour
     {
         #region Unity API
@@ -50,6 +51,7 @@ namespace Car.Runtime
         private void GetPathRecordsList()
         {
             if (!_ghostRecord) return;
+            
             _pathRecordsList = _ghostRecord.PathDataList;
         }
         
