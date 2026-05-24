@@ -16,7 +16,6 @@ namespace Car.Runtime
         private void Update()
         {
             if (!_isInMotion) return;
-            
             UpdateMotion();
         }
 
@@ -24,6 +23,7 @@ namespace Car.Runtime
         
         
         #region Main API
+        
         public void InitializeGhost()
         {
             GetPathRecordsList();
@@ -35,6 +35,9 @@ namespace Car.Runtime
             _currentTime = 0;
             _recordInterval = _pathRecordsList[1].DeltaTime;
             _isInMotion = true;
+            transform.position = _pathRecordsList[0].Position;
+            transform.rotation = _pathRecordsList[0].Rotation;
+            SetNewLerpBounds();
         }
 
         public void StopMotion()
@@ -47,40 +50,55 @@ namespace Car.Runtime
             if (!_ghostRecord) return;
             _pathRecordsList = _ghostRecord.PathDataList;
         }
-
-
+        
         private void UpdateMotion()
         {
-            //TODO : Optimize the IFs
-            if (_currentIndex > _pathRecordsList.Count) return;
-            
             _currentTime += Time.deltaTime;
-            if (_currentTime >= _recordInterval)
-            {
-            transform.position = _pathRecordsList[_currentIndex].Position;
-            transform.rotation = _pathRecordsList[_currentIndex].Rotation;
+            float ratio = _currentTime / _recordInterval;
+            
+            transform.position = Vector3.Lerp(_positionA, _positionB, ratio);
+            transform.rotation = Quaternion.Lerp(_rotationA, _rotationB, ratio);
+            
+            bool _isNextPointReached = _currentTime >= _recordInterval;
+            if (!_isNextPointReached) return;
+            
+            bool _isLastPointReached = _currentIndex == _pathRecordsList.Count - 2;
+            if(_isLastPointReached) StopMotion();
+            
+            SetNewLerpBounds();
 
             _currentTime -= _recordInterval;
-            if (_currentIndex == _pathRecordsList.Count - 1) return;
             _recordInterval = _pathRecordsList[_currentIndex + 1].DeltaTime;
             _currentIndex++;
-            }
         }
-
+        
+        private void SetNewLerpBounds()
+        {
+            _positionA = _pathRecordsList[_currentIndex].Position;
+            _positionB = _pathRecordsList[_currentIndex + 1].Position;
+            _rotationA = _pathRecordsList[_currentIndex].Rotation;
+            _rotationB = _pathRecordsList[_currentIndex + 1].Rotation;
+        }
+        
         #endregion
         
         
         #region Private and Protected
 
+        private bool _isInMotion;
+        
         private float _currentTime;
         private float _recordInterval;
         private int _currentIndex;
-        private bool _isInMotion;
+        
+        private Vector3 _positionA;
+        private Vector3 _positionB;
+        private Quaternion _rotationA;
+        private Quaternion _rotationB;
         
         private IReadOnlyList<GhostRecord.PathData> _pathRecordsList;
         private GhostRecord _ghostRecord;
-        //TODO : Car manager should tell when it's initialize,
-        //TODO : when it will be, no need to ref player motion anymore;
+        
         #endregion
     }
 }
