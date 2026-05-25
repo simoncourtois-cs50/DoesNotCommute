@@ -30,11 +30,10 @@ namespace GameManager.Runtime
                 case Phase.Rest:
                     break;
                 case Phase.Play:
-                    _RewindButton.gameObject.SetActive(true);
+                    ActivateRewindButton();
                     _carManager.ActivateCarControl();
                     break;
                 case Phase.Rewind:
-                    _RewindButton.gameObject.SetActive(false);
                     _carManager.Rewind();
                     break;
             }
@@ -61,6 +60,7 @@ namespace GameManager.Runtime
                 case Phase.Rest:
                     break;
                 case Phase.Play:
+                    DeactivateRewindButton();
                     break;
                 case Phase.Rewind:
                     break;
@@ -92,6 +92,16 @@ namespace GameManager.Runtime
         public void Rewind()
         {
             ChangePhase(Phase.Rewind);
+        }
+
+        private void ActivateRewindButton()
+        {
+            _RewindButton.gameObject.SetActive(true);
+        }
+
+        private void DeactivateRewindButton()
+        {
+            _RewindButton.gameObject.SetActive(false);
         }
 
         #endregion

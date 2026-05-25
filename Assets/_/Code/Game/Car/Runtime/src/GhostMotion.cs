@@ -70,7 +70,7 @@ namespace Car.Runtime
         private void UpdateMotion()
         {
             _currentTime += _isRewinding
-                ? - Time.deltaTime
+                ? - Time.deltaTime * _speedRewind
                 : Time.deltaTime;
             
             float ratio = _currentTime / _recordInterval;
@@ -152,7 +152,8 @@ namespace Car.Runtime
         private IReadOnlyList<GhostRecord.PathData> _pathRecordsList;
         private GhostRecord _ghostRecord;
         private Rigidbody _rigidbody;
-        
+        private float _speedRewind = 3f;
+
         #endregion
     }
 }
