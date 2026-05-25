@@ -5,6 +5,13 @@ namespace Car.Runtime
 {
     public class CarManager : MonoBehaviour
     {
+        #region Public
+
+        public event Action _OnPlayEnd;
+
+        #endregion
+        
+        
         #region Unity API
 
         private void Awake()
@@ -34,6 +41,7 @@ namespace Car.Runtime
             
             GameObject currentControlledCar = _carsPool[_currentCarControledIndex];
             currentControlledCar.SetActive(true);
+            
             if (!currentControlledCar.TryGetComponent<PlayerMotion>(out _currentPlayerController)) return;
             _currentPlayerController.StartPlayerControl();
             
@@ -54,7 +62,6 @@ namespace Car.Runtime
             
             _currentCarControledIndex++;
             
-            
             _OnPlayEnd?.Invoke();
         }
 
@@ -72,7 +79,7 @@ namespace Car.Runtime
         private void StopGhosts()
         {
             if (_currentCarControledIndex <= 0) return;
-            for (int i = _currentCarControledIndex - 1; i >= 0; i--)
+            for (int i = 0 ; i < _carsPool.Length; i ++)
             {
                 if (!_carsPool[i].TryGetComponent<GhostMotion>(out GhostMotion ghost)) return;
                 ghost.gameObject.SetActive(false);
@@ -83,13 +90,23 @@ namespace Car.Runtime
         {
             _currentPlayerController.StopPlayerControl();
             _currentGhostRecorder.StopRecording();
+            _currentCarGhost.OnRewindEnd += HandleOnRewindEnd;
             _currentCarGhost.InitializeGhost();
+            _currentCarGhost.StartMotion();
             
-            for (int i = 0; i <= _currentCarControledIndex + 1 ; i++)
+            for (int i = 0; i < _carsPool.Length; i++)
             {
                 if (!_carsPool[i].TryGetComponent<GhostMotion>(out GhostMotion ghost)) return;
                 ghost.Rewind();
             }
+        }
+
+        private void HandleOnRewindEnd()
+        {
+            _currentGhostRecorder.ClearRecording();
+            _currentCarGhost.OnRewindEnd -= HandleOnRewindEnd;
+            StopGhosts();
+            _OnPlayEnd?.Invoke();
         }
         #endregion
         
@@ -109,7 +126,6 @@ namespace Car.Runtime
         [SerializeField] private Transform[] _originCollection;
         [SerializeField] private Collider[] _destinationCollection;
         
-        public event Action _OnPlayEnd;
 
         #endregion
     }

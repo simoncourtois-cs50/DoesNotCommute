@@ -1,6 +1,7 @@
 using Car.Runtime;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace GameManager.Runtime
 {
@@ -29,9 +30,12 @@ namespace GameManager.Runtime
                 case Phase.Rest:
                     break;
                 case Phase.Play:
+                    _RewindButton.gameObject.SetActive(true);
                     _carManager.ActivateCarControl();
                     break;
                 case Phase.Rewind:
+                    _RewindButton.gameObject.SetActive(false);
+                    _carManager.Rewind();
                     break;
             }
         }
@@ -85,6 +89,11 @@ namespace GameManager.Runtime
             ChangePhase(Phase.Rest);
         }
 
+        public void Rewind()
+        {
+            ChangePhase(Phase.Rewind);
+        }
+
         #endregion
         
         #region Private and Protected
@@ -99,6 +108,7 @@ namespace GameManager.Runtime
         private Phase _currentPhase;
         
         [SerializeField] private CarManager _carManager;
+        [SerializeField] private Button _RewindButton;
         private InputAction _continueInput;
 
         #endregion

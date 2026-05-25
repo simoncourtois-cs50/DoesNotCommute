@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,9 +7,16 @@ namespace Car.Runtime
     [RequireComponent(typeof(Rigidbody),typeof(GhostRecord))]
     public class GhostMotion : MonoBehaviour
     {
+        #region Public
+
+        public event Action OnRewindEnd;
+
+        #endregion
+        
+        
         #region Unity API
 
-        private void Start()
+        private void Awake()
         {
             if (!TryGetComponent<GhostRecord>(out _ghostRecord)) return;
             _currentIndex = 0;
@@ -29,16 +37,18 @@ namespace Car.Runtime
         public void InitializeGhost()
         {
             GetPathRecordsList();
-            _rigidbody.isKinematic = true;
+            
         }
 
         public void StartMotion()
         {
+            if (_pathRecordsList == null) return;
             _currentIndex = 0;
             _currentTime = 0;
             _recordInterval = _pathRecordsList[1].DeltaTime;
             _isInMotion = true;
             _isRewinding = false;
+            _rigidbody.isKinematic = true;
             transform.position = _pathRecordsList[0].Position;
             transform.rotation = _pathRecordsList[0].Rotation;
             SetNewIntervalParameters();
@@ -47,6 +57,7 @@ namespace Car.Runtime
         public void StopMotion()
         {
             _isInMotion = false;
+            _rigidbody.isKinematic = false;
         }
 
         private void GetPathRecordsList()
@@ -76,7 +87,12 @@ namespace Car.Runtime
             bool _isLastPointReached = _isRewinding
                 ? _currentIndex == 1
                 : _currentIndex == _pathRecordsList.Count - 2;
-            if(_isLastPointReached) StopMotion();
+            if (_isLastPointReached)
+            {
+                StopMotion();
+                OnRewindEnd?.Invoke();
+                return;
+            }
             
             SetNewIntervalParameters();
             
@@ -86,25 +102,15 @@ namespace Car.Runtime
             
             int recordIntervalIndex = _currentIndex + 1;
             
-            
             _recordInterval = _pathRecordsList[recordIntervalIndex].DeltaTime;
             
             _currentIndex += _isRewinding
                 ? -1
                 : 1;
-
         }
         
         private void SetNewIntervalParameters()
         {
-            /*
-            int originPositionIndex = _isRewinding
-                ? _currentIndex + 1
-                : _currentIndex;
-            int destinationPositionIndex = _isRewinding
-                ? _currentIndex
-                : _currentIndex + 1;
-            */
                 _positionA = _pathRecordsList[_currentIndex].Position;
                 _positionB = _pathRecordsList[_currentIndex + 1].Position;
                 _rotationA = _pathRecordsList[_currentIndex].Rotation;
@@ -113,16 +119,27 @@ namespace Car.Runtime
 
         public void Rewind()
         {
+            //Rewind only Cars with a recorded List
+            if (_pathRecordsList == null || _pathRecordsList.Count < 2) return;
             _isRewinding = true;
+            _isInMotion = true;
+            _currentIndex--;
+            
+            if (_currentIndex >= 0) return;
+            
+            // Initialize Ghost for the currentControlled Car
+            _currentIndex = _pathRecordsList.Count - 2;
+            _recordInterval = _pathRecordsList[_pathRecordsList.Count - 1].DeltaTime;
+            SetNewIntervalParameters();
         }
-        
+
         #endregion
         
         
         #region Private and Protected
 
-        private bool _isInMotion;
-        private bool _isRewinding;
+        [SerializeField] bool _isInMotion;
+        [SerializeField] private bool _isRewinding;
         private float _currentTime;
         private float _recordInterval;
         private int _currentIndex;
@@ -135,7 +152,7 @@ namespace Car.Runtime
         private IReadOnlyList<GhostRecord.PathData> _pathRecordsList;
         private GhostRecord _ghostRecord;
         private Rigidbody _rigidbody;
-
+        
         #endregion
     }
 }

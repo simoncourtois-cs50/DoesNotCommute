@@ -46,6 +46,7 @@ namespace Car.Runtime
 
         public void StartRecording()
         {
+            _currentTime = 0;
             _isRecording = true;
             PathData startFrame = GetPathData();
             _pathDataList.Add(startFrame);
@@ -64,6 +65,10 @@ namespace Car.Runtime
             
             _pathDataList.Add(GetPathData());
             _currentTime = 0;
+        }
+        public void ClearRecording()
+        {
+            _pathDataList.Clear(); 
         }
         
         private PathData GetPathData()
