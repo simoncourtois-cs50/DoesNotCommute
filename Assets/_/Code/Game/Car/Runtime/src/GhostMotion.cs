@@ -38,9 +38,10 @@ namespace Car.Runtime
             _currentTime = 0;
             _recordInterval = _pathRecordsList[1].DeltaTime;
             _isInMotion = true;
+            _isRewinding = false;
             transform.position = _pathRecordsList[0].Position;
             transform.rotation = _pathRecordsList[0].Rotation;
-            SetNewLerpBounds();
+            SetNewIntervalParameters();
         }
 
         public void StopMotion()
@@ -57,31 +58,62 @@ namespace Car.Runtime
         
         private void UpdateMotion()
         {
-            _currentTime += Time.deltaTime;
+            _currentTime += _isRewinding
+                ? - Time.deltaTime
+                : Time.deltaTime;
+            
             float ratio = _currentTime / _recordInterval;
             
             transform.position = Vector3.Lerp(_positionA, _positionB, ratio);
             transform.rotation = Quaternion.Lerp(_rotationA, _rotationB, ratio);
             
-            bool _isNextPointReached = _currentTime >= _recordInterval;
+            bool _isNextPointReached = _isRewinding
+                ? _currentTime <= 0
+                : _currentTime >= _recordInterval;
+            
             if (!_isNextPointReached) return;
             
-            bool _isLastPointReached = _currentIndex == _pathRecordsList.Count - 2;
+            bool _isLastPointReached = _isRewinding
+                ? _currentIndex == 1
+                : _currentIndex == _pathRecordsList.Count - 2;
             if(_isLastPointReached) StopMotion();
             
-            SetNewLerpBounds();
+            SetNewIntervalParameters();
+            
+            _currentTime += _isRewinding
+                ? _recordInterval
+                : -_recordInterval;
+            
+            int recordIntervalIndex = _currentIndex + 1;
+            
+            
+            _recordInterval = _pathRecordsList[recordIntervalIndex].DeltaTime;
+            
+            _currentIndex += _isRewinding
+                ? -1
+                : 1;
 
-            _currentTime -= _recordInterval;
-            _recordInterval = _pathRecordsList[_currentIndex + 1].DeltaTime;
-            _currentIndex++;
         }
         
-        private void SetNewLerpBounds()
+        private void SetNewIntervalParameters()
         {
-            _positionA = _pathRecordsList[_currentIndex].Position;
-            _positionB = _pathRecordsList[_currentIndex + 1].Position;
-            _rotationA = _pathRecordsList[_currentIndex].Rotation;
-            _rotationB = _pathRecordsList[_currentIndex + 1].Rotation;
+            /*
+            int originPositionIndex = _isRewinding
+                ? _currentIndex + 1
+                : _currentIndex;
+            int destinationPositionIndex = _isRewinding
+                ? _currentIndex
+                : _currentIndex + 1;
+            */
+                _positionA = _pathRecordsList[_currentIndex].Position;
+                _positionB = _pathRecordsList[_currentIndex + 1].Position;
+                _rotationA = _pathRecordsList[_currentIndex].Rotation;
+                _rotationB = _pathRecordsList[_currentIndex + 1].Rotation;
+        }
+
+        public void Rewind()
+        {
+            _isRewinding = true;
         }
         
         #endregion
@@ -90,7 +122,7 @@ namespace Car.Runtime
         #region Private and Protected
 
         private bool _isInMotion;
-        
+        private bool _isRewinding;
         private float _currentTime;
         private float _recordInterval;
         private int _currentIndex;

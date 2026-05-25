@@ -79,7 +79,18 @@ namespace Car.Runtime
                 ghost.StopMotion();
             }
         }
-        
+        public void Rewind()
+        {
+            _currentPlayerController.StopPlayerControl();
+            _currentGhostRecorder.StopRecording();
+            _currentCarGhost.InitializeGhost();
+            
+            for (int i = 0; i <= _currentCarControledIndex + 1 ; i++)
+            {
+                if (!_carsPool[i].TryGetComponent<GhostMotion>(out GhostMotion ghost)) return;
+                ghost.Rewind();
+            }
+        }
         #endregion
         
         
