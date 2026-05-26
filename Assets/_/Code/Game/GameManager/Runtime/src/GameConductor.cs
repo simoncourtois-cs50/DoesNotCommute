@@ -1,6 +1,6 @@
 using Camera.Runtime;
 using Car.Runtime;
-using System;
+using Timer.Runtime;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -36,20 +36,36 @@ namespace GameManager.Runtime
             switch (_currentPhase)
             {
                 case Phase.Rest:
+
                     ResetCameraToRest();
+
+                    TimeManager.Instance.PauseTimer();
+
                     break;
+
                 case Phase.Play:
+
                     ActivateRewindButton();
+
                     _carManager.ActivateCarControl();
+
                     ResetCameraToPlayer(_playCameraDistance);
+
+                    TimeManager.Instance.StartChrono();
+                    TimeManager.Instance.PlayTimer();
                     break;
+
                 case Phase.Rewind:
+
                     ResetCameraToPlayer(_rewindResetCameraDistance);
+
                     _carManager.Rewind();
+
+                    TimeManager.Instance.RewindTimer(_rewindSpeed);
+
                     break;
             }
         }
-
 
         private void OnStayPhase()
         {
@@ -75,6 +91,7 @@ namespace GameManager.Runtime
                     DeactivateRewindButton();
                     break;
                 case Phase.Rewind:
+                    TimeManager.Instance.SetTimerAfterRewind();
                     break;
             }
         }

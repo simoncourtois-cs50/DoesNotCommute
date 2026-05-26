@@ -29,12 +29,13 @@ namespace Timer.Runtime
                 Destroy(this);
                 return;
             }
-            m_isPlaying = true;
+            m_currentTime = _timerValue;
         }
 
         private void Update()
         {
             if (m_isPlaying) m_currentTime -= Time.deltaTime;
+            if (_isRewinding) HandleRewind();
         }
 
         #endregion
@@ -51,12 +52,40 @@ namespace Timer.Runtime
         public void PlayTimer()
         {
             m_isPlaying = true;
+            _isRewinding = false;
+
             OnPlay?.Invoke();
         }
 
         public void ResetTimer()
         {
-            m_currentTime = 60f;
+            m_currentTime = _timerValue;
+        }
+
+        public void StartChrono()
+        {
+            _startStamp = m_currentTime;
+        }
+
+        public void RewindTimer(float rewindSpeed)
+        {
+            _isRewinding = true;
+            m_isPlaying = false;
+            _rewindSpeed = rewindSpeed;
+        }
+        private void HandleRewind()
+        {
+            m_currentTime += Time.deltaTime * _rewindSpeed;
+
+            if (m_currentTime < _startStamp) return;
+            
+            m_currentTime = _startStamp;
+            m_isPlaying = false;
+            _isRewinding = false;
+        }
+        public void SetTimerAfterRewind()
+        {
+            m_currentTime = _startStamp - 1;
         }
 
         #endregion
@@ -65,6 +94,9 @@ namespace Timer.Runtime
         #region
 
         [SerializeField] private float _timerValue;
+        private float _startStamp;
+        private float _rewindSpeed;
+        private bool _isRewinding;
 
         #endregion
     }

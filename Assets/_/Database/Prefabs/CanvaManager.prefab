@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5198048580903143605
+--- !u!1 &2743039769779015042
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6191844130463992259}
-  - component: {fileID: 2160465540655288796}
+  - component: {fileID: 1049530422988583072}
+  - component: {fileID: 4966619098458645059}
   m_Layer: 0
-  m_Name: TimeManager
+  m_Name: CanvaManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6191844130463992259
+--- !u!4 &1049530422988583072
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5198048580903143605}
+  m_GameObject: {fileID: 2743039769779015042}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20.91215, y: 0.00001, z: -129.57828}
+  m_LocalPosition: {x: 656.40027, y: -0, z: 1879.8147}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2160465540655288796
+--- !u!114 &4966619098458645059
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5198048580903143605}
+  m_GameObject: {fileID: 2743039769779015042}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c017f0c0af052ce49a1e2d1b49395d3d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5417d64f0c3fdf9478fef29d35d35d0a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Timer.Runtime::Timer.Runtime.TimeManager
-  _timerValue: 60
+  m_EditorClassIdentifier: GameManager.Runtime::GameManager.Runtime.CanvaManager
