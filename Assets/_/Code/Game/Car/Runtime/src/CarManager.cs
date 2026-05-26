@@ -7,7 +7,8 @@ namespace Car.Runtime
     {
         #region Public
 
-        public event Action _OnPlayEnd;
+        public event Action OnPlayEnd;
+        public event Action OnRewindEnd;
 
         #endregion
         
@@ -49,6 +50,7 @@ namespace Car.Runtime
             _currentGhostRecorder.StartRecording();
             
             if (!currentControlledCar.TryGetComponent<GhostMotion>(out _currentCarGhost)) return;
+            _currentCarGhost.SetRewindSpeed(_rewindSpeed);
             ActivateGhosts();
         }
 
@@ -58,11 +60,12 @@ namespace Car.Runtime
             _currentPlayerController.StopPlayerControl();
             _currentGhostRecorder.StopRecording();
             _currentCarGhost.InitializeGhost();
+            
             StopGhosts();
             
             _currentCarControledIndex++;
             
-            _OnPlayEnd?.Invoke();
+            OnPlayEnd?.Invoke();
         }
 
         private void ActivateGhosts()
@@ -86,6 +89,7 @@ namespace Car.Runtime
                 ghost.StopMotion();
             }
         }
+
         public void Rewind()
         {
             _currentPlayerController.StopPlayerControl();
@@ -106,8 +110,19 @@ namespace Car.Runtime
             _currentGhostRecorder.ClearRecording();
             _currentCarGhost.OnRewindEnd -= HandleOnRewindEnd;
             StopGhosts();
-            _OnPlayEnd?.Invoke();
+            OnRewindEnd?.Invoke();
         }
+
+        public void SetRewindSpeed(float speed)
+        {
+            _rewindSpeed = speed;
+        }
+
+        public GameObject GetCurrentCar()
+        {
+            return _carsPool[_currentCarControledIndex];
+        }
+
         #endregion
         
         
@@ -119,6 +134,7 @@ namespace Car.Runtime
         private GameObject[] _carsPool;
         private int _carQuantity = 5;
         private int _currentCarControledIndex;
+        private float _rewindSpeed;
         private PlayerMotion _currentPlayerController;
         private GhostRecord _currentGhostRecorder;
         private GhostMotion _currentCarGhost;

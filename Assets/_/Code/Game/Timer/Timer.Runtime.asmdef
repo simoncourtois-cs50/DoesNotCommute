@@ -1,11 +1,7 @@
 {
-    "name": "GameManager.Runtime",
-    "rootNamespace": "GameManager.Runtime",
-    "references": [
-        "GUID:bc06a47a6006ce044b5c613510c9533b",
-        "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:9423f58f0a927b245a8cd393cd46a7b2"
-    ],
+    "name": "Timer.Runtime",
+    "rootNamespace": "Timer.Runtime",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

@@ -37,7 +37,6 @@ namespace Car.Runtime
         public void InitializeGhost()
         {
             GetPathRecordsList();
-            
         }
 
         public void StartMotion()
@@ -133,6 +132,11 @@ namespace Car.Runtime
             SetNewIntervalParameters();
         }
 
+        public void SetRewindSpeed(float speed)
+        {
+            _speedRewind = speed;
+        }
+
         #endregion
         
         
@@ -152,7 +156,7 @@ namespace Car.Runtime
         private IReadOnlyList<GhostRecord.PathData> _pathRecordsList;
         private GhostRecord _ghostRecord;
         private Rigidbody _rigidbody;
-        private float _speedRewind = 3f;
+        private float _speedRewind;
 
         #endregion
     }
