@@ -44,3 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5417d64f0c3fdf9478fef29d35d35d0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameManager.Runtime::GameManager.Runtime.CanvaManager
+  _secondDisplay: {fileID: 0}
+  _millisecondDisplay: {fileID: 0}
+  _malusDisplay: {fileID: 0}
+  _endText: {fileID: 0}
+  _endMenu: {fileID: 0}
+  _malusAppearanceLength: 0.4
+  _carManager: {fileID: 0}

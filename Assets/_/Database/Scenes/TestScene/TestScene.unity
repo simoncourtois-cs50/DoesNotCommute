@@ -274,6 +274,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 739904605}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &543059594 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3843162800878505780, guid: 62aa1a4f2c818b741863afc84c96e12e, type: 3}
+  m_PrefabInstance: {fileID: 1904676033262936540}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &546856117 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4966619098458645059, guid: 99c00cdd53d5fa94c9a7a60a45caac44, type: 3}
+  m_PrefabInstance: {fileID: 1010310962483911152}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5417d64f0c3fdf9478fef29d35d35d0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameManager.Runtime::GameManager.Runtime.CanvaManager
 --- !u!1 &566776329
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,6 +820,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8cbb78049597264b9ca4e5afdb8ea6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Camera.Runtime::Camera.Runtime.CameraFollow
+--- !u!114 &1217876666 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6417625115615156232, guid: 62aa1a4f2c818b741863afc84c96e12e, type: 3}
+  m_PrefabInstance: {fileID: 1904676033262936540}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1249024263
 GameObject:
   m_ObjectHideFlags: 0
@@ -1448,9 +1475,21 @@ PrefabInstance:
       value: CanvaManager
       objectReference: {fileID: 0}
     - target: {fileID: 4966619098458645059, guid: 99c00cdd53d5fa94c9a7a60a45caac44, type: 3}
-      propertyPath: _chronoDisplay
+      propertyPath: _endMenu
       value: 
-      objectReference: {fileID: 1700768935}
+      objectReference: {fileID: 543059594}
+    - target: {fileID: 4966619098458645059, guid: 99c00cdd53d5fa94c9a7a60a45caac44, type: 3}
+      propertyPath: _endText
+      value: 
+      objectReference: {fileID: 1217876666}
+    - target: {fileID: 4966619098458645059, guid: 99c00cdd53d5fa94c9a7a60a45caac44, type: 3}
+      propertyPath: _carManager
+      value: 
+      objectReference: {fileID: 1360215898}
+    - target: {fileID: 4966619098458645059, guid: 99c00cdd53d5fa94c9a7a60a45caac44, type: 3}
+      propertyPath: _malusDisplay
+      value: 
+      objectReference: {fileID: 1904676033262936541}
     - target: {fileID: 4966619098458645059, guid: 99c00cdd53d5fa94c9a7a60a45caac44, type: 3}
       propertyPath: _secondDisplay
       value: 
@@ -1560,11 +1599,26 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1024803046}
+    - target: {fileID: 7954931828274056061, guid: 62aa1a4f2c818b741863afc84c96e12e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1024803046}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62aa1a4f2c818b741863afc84c96e12e, type: 3}
+--- !u!114 &1904676033262936541 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1818691052692492707, guid: 62aa1a4f2c818b741863afc84c96e12e, type: 3}
+  m_PrefabInstance: {fileID: 1904676033262936540}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &2100189031008984244
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1585,6 +1639,10 @@ PrefabInstance:
       propertyPath: _cameraFollow
       value: 
       objectReference: {fileID: 1183556788}
+    - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
+      propertyPath: _canvaManager
+      value: 
+      objectReference: {fileID: 546856117}
     - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
       propertyPath: _restCameraTransform
       value: 

@@ -11,6 +11,7 @@ namespace Timer.Runtime
         public float m_currentTime { get; private set; }
         public event Action OnPause;
         public event Action OnPlay;
+        public event Action OnEnd;
         public static TimeManager Instance { get; private set; }
 
         #endregion
@@ -35,7 +36,10 @@ namespace Timer.Runtime
         private void Update()
         {
             if (m_isPlaying) m_currentTime -= Time.deltaTime;
+
             if (_isRewinding) HandleRewind();
+
+            CheckEndGame();
         }
 
         #endregion
@@ -86,6 +90,14 @@ namespace Timer.Runtime
         public void SetTimerAfterRewind()
         {
             m_currentTime = _startStamp - 1;
+        }
+        
+        private void CheckEndGame()
+        {
+            if (m_currentTime > 0) return;
+            ResetTimer();
+            PauseTimer();
+            OnEnd?.Invoke();
         }
 
         #endregion
