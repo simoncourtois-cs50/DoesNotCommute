@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c017f0c0af052ce49a1e2d1b49395d3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Timer.Runtime::Timer.Runtime.TimeManager
-  _timerValue: 60
+  _timerValue: 70

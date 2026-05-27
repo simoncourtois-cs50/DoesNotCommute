@@ -19517,10 +19517,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2160465540655288796, guid: 56b102a501b777b4caa828ccf53f55f3, type: 3}
-      propertyPath: _timerValue
-      value: 70
-      objectReference: {fileID: 0}
     - target: {fileID: 5198048580903143605, guid: 56b102a501b777b4caa828ccf53f55f3, type: 3}
       propertyPath: m_Name
       value: TimeManager
@@ -27573,21 +27569,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1526037569}
     - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
-      propertyPath: _restCameraDistance
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
       propertyPath: _restCameraTransform
       value: 
       objectReference: {fileID: 1970476887}
-    - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
-      propertyPath: _rewindResetCameraDistance
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
-      propertyPath: _originObjectList.Array.size
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
       propertyPath: '_originObjectList.Array.data[0]'
       value: 
@@ -27608,10 +27592,6 @@ PrefabInstance:
       propertyPath: '_originObjectList.Array.data[4]'
       value: 
       objectReference: {fileID: 947525573}
-    - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
-      propertyPath: _destinationObjectList.Array.size
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
       propertyPath: '_destinationObjectList.Array.data[0]'
       value: 
@@ -30248,30 +30228,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarManager
       objectReference: {fileID: 0}
-    - target: {fileID: 5444633637394128758, guid: 13bdc3ec8878ae645bc2c20761fb921e, type: 3}
-      propertyPath: _carPrefabArray.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5444633637394128758, guid: 13bdc3ec8878ae645bc2c20761fb921e, type: 3}
-      propertyPath: '_carPrefabArray.Array.data[0]'
-      value: 
-      objectReference: {fileID: 3786326439804512758, guid: f4e73d783d681e04ca355f6c8a50af8e, type: 3}
-    - target: {fileID: 5444633637394128758, guid: 13bdc3ec8878ae645bc2c20761fb921e, type: 3}
-      propertyPath: '_carPrefabArray.Array.data[1]'
-      value: 
-      objectReference: {fileID: 2922220883736789182, guid: 041e4e3100f07184cacfe35dce34f022, type: 3}
-    - target: {fileID: 5444633637394128758, guid: 13bdc3ec8878ae645bc2c20761fb921e, type: 3}
-      propertyPath: '_carPrefabArray.Array.data[2]'
-      value: 
-      objectReference: {fileID: 745966575250574594, guid: 789bb11bfacf90443892854edcbb02f4, type: 3}
-    - target: {fileID: 5444633637394128758, guid: 13bdc3ec8878ae645bc2c20761fb921e, type: 3}
-      propertyPath: '_carPrefabArray.Array.data[3]'
-      value: 
-      objectReference: {fileID: 793685457875359081, guid: 9c92406c14c380849bca38280c133c64, type: 3}
-    - target: {fileID: 5444633637394128758, guid: 13bdc3ec8878ae645bc2c20761fb921e, type: 3}
-      propertyPath: '_carPrefabArray.Array.data[4]'
-      value: 
-      objectReference: {fileID: 7199546247579947592, guid: 8c0f502c596c3c746a68e5631858c360, type: 3}
     - target: {fileID: 5444633637394128758, guid: 13bdc3ec8878ae645bc2c20761fb921e, type: 3}
       propertyPath: '_originCollection.Array.data[0]'
       value: 

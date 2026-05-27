@@ -45,12 +45,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: GameManager.Runtime::GameManager.Runtime.GameConductor
   _carManager: {fileID: 0}
+  _canvaManager: {fileID: 0}
   _RewindButton: {fileID: 0}
+  _restCameraTransform: {fileID: 0}
+  _cameraFollow: {fileID: 0}
+  _originObjectList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _destinationObjectList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _rewindSpeed: 3
   _restResetCameraTime: 2
   _playResetCameraTime: 1
-  _cameraFollow: {fileID: 0}
   _playCameraDistance: 60
-  _restCameraDistance: 100
-  _rewindResetCameraDistance: 100
-  _restCameraTransform: {fileID: 0}
+  _restCameraDistance: 200
+  _rewindResetCameraDistance: 180
