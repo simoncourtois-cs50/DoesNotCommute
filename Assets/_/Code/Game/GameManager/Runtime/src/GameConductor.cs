@@ -1,5 +1,6 @@
 using Camera.Runtime;
 using Car.Runtime;
+using System.Collections.Generic;
 using Timer.Runtime;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,7 +21,7 @@ namespace GameManager.Runtime
             _carManager.OnPlayEnd += OnPlayEndHandler;
             _carManager.OnRewindEnd += OnRewindHandler;
             TimeManager.Instance.OnEnd += OnTimerEndHandler;
-            _currentPhase = Phase.Rest;
+            ChangePhase(Phase.Rest);
         }
 
         private void Update()
@@ -40,7 +41,8 @@ namespace GameManager.Runtime
                 case Phase.MenuStart:
                     break;
                 case Phase.Rest:
-
+                   
+                    ActivateMission();
                     ResetCameraToRest();
 
                     TimeManager.Instance.PauseTimer();
@@ -104,6 +106,7 @@ namespace GameManager.Runtime
                     break;
                 case Phase.Play:
                     DeactivateRewindButton();
+                    DeActivateMission();
                     break;
                 case Phase.Rewind:
                     TimeManager.Instance.SetTimerAfterRewind();
@@ -137,7 +140,7 @@ namespace GameManager.Runtime
         }
         private void OnRewindHandler()
         {
-            ChangePhase(Phase.Play);
+            ChangePhase(Phase.Rest);
         }
 
         private void OnTimerEndHandler()
@@ -159,6 +162,17 @@ namespace GameManager.Runtime
         private void DeactivateRewindButton()
         {
             _RewindButton.gameObject.SetActive(false);
+        }
+        private void ActivateMission()
+        {
+            _currentIndex = _carManager.GetCurrentIndex();
+            _originObjectList[_currentIndex].SetActive(true);
+            _destinationObjectList[_currentIndex].SetActive(true);
+        }
+        private void DeActivateMission()
+        {
+            _originObjectList[_currentIndex].SetActive(false);
+            _destinationObjectList[_currentIndex].SetActive(false);
         }
         private void ResetCameraToPlayer(float distance)
         {
@@ -188,6 +202,8 @@ namespace GameManager.Runtime
         [SerializeField] private Button _RewindButton;
         [SerializeField] Transform _restCameraTransform;
         [SerializeField] private CameraFollow _cameraFollow;
+        [SerializeField] private List<GameObject> _originObjectList;
+        [SerializeField] private List<GameObject> _destinationObjectList;
 
         [Header("Rewind Speed")]
         [SerializeField] private float _rewindSpeed;
@@ -201,6 +217,7 @@ namespace GameManager.Runtime
 
         private InputAction _continueInput;
         private Transform _currentCar;
+        private int _currentIndex;
         private string _endtext;
         private enum Phase
         {

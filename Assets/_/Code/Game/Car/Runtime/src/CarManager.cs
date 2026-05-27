@@ -53,6 +53,10 @@ namespace Car.Runtime
             _currentCarGhost.SetRewindSpeed(_rewindSpeed);
             ActivateGhosts();
         }
+        public int GetCurrentIndex()
+        {
+            return _currentCarControledIndex;
+        }
 
         private void HandleOnDestinationReached()
         {
