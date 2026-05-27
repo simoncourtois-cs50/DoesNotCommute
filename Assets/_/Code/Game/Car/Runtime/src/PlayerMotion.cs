@@ -13,12 +13,12 @@ namespace Car.Runtime
 
         #endregion
         
+
         #region Unity API
 
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
-            //TODO : Personnalize with Scriptable Object for different type of vehicle
             _moveAction = InputSystem.actions.FindAction("Move");
             _currentSpeed = 0;
         }

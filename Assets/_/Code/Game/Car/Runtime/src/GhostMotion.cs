@@ -86,6 +86,7 @@ namespace Car.Runtime
             bool _isLastPointReached = _isRewinding
                 ? _currentIndex == 1
                 : _currentIndex == _pathRecordsList.Count - 2;
+
             if (_isLastPointReached)
             {
                 StopMotion();

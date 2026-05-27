@@ -24,7 +24,9 @@ namespace Car.Runtime
             {
                 GameObject car = Instantiate(_carPrefabArray[i], Vector3.zero, Quaternion.identity);
                 car.SetActive(false);
+
                 if (!car.TryGetComponent<PlayerMotion>(out PlayerMotion carControl)) return;
+
                 carControl.InitializeMission(_destinationCollection[i],_originCollection[i]);
                 carControl.OnDestinationReached += HandleOnDestinationReached;
                 _carsPool[i] = car;
@@ -54,6 +56,7 @@ namespace Car.Runtime
             _currentCarGhost.SetRewindSpeed(_rewindSpeed);
             ActivateGhosts();
         }
+
         public int GetCurrentIndex()
         {
             return _currentCarControledIndex;
@@ -75,7 +78,6 @@ namespace Car.Runtime
             if (_currentCarControledIndex >= _carQuantity) return;
 
             OnPlayEnd?.Invoke();
-
         }
 
         private void ActivateGhosts()
@@ -132,32 +134,35 @@ namespace Car.Runtime
         {
             return _carsPool[_currentCarControledIndex];
         }
+
         private void CheckEndOfArray()
         {
             if (_currentCarControledIndex < _carQuantity) return;
             
             OnSuccess?.Invoke();
-            
         }
+
         #endregion
         
         
         #region Private and Protected
-        
-        //TODO : Use multiple prefabs and Bigger Pool;
+       
         [SerializeField] private GameObject[] _carPrefabArray;
-        
-        private GameObject[] _carsPool;
-        private int _carQuantity = 5;
-        private int _currentCarControledIndex;
-        private float _rewindSpeed;
-        private PlayerMotion _currentPlayerController;
-        private GhostRecord _currentGhostRecorder;
-        private GhostMotion _currentCarGhost;
         //TODO : Protect the minimum possible = _carQuantity;
         [SerializeField] private Transform[] _originCollection;
         [SerializeField] private Collider[] _destinationCollection;
         
+        private GameObject[] _carsPool;
+        private int _carQuantity = 5;
+
+        private float _rewindSpeed;
+
+        // Current Car
+        private int _currentCarControledIndex;
+        private PlayerMotion _currentPlayerController;
+        private GhostRecord _currentGhostRecorder;
+        private GhostMotion _currentCarGhost;
+
 
         #endregion
     }

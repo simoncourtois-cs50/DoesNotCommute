@@ -134,6 +134,10 @@ namespace GameManager.Runtime
             if (!_continueInput.WasReleasedThisFrame()) return;
             ChangePhase(Phase.Play);
         }
+        public void OnStartClick()
+        {
+            SceneManager.LoadScene(0);
+        }
 
         private void OnPlayEndHandler()
         {
@@ -191,10 +195,6 @@ namespace GameManager.Runtime
             _cameraFollow.SetTarget(_restCameraTransform, _restCameraDistance, _restResetCameraTime);
         }
 
-        public void OnStartClick()
-        {
-            SceneManager.LoadScene(0);
-        }
        
         #endregion
 

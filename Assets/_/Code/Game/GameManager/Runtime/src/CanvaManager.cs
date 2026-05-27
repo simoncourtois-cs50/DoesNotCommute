@@ -13,6 +13,7 @@ namespace GameManager.Runtime
         {
             _carManager.OnRewindEnd += ActivateMalusDisplay;
         }
+
         private void Update()
         {
             DisplayTime();
@@ -21,6 +22,7 @@ namespace GameManager.Runtime
 
             DisplayMalus();
         }
+
         private void DisplayTime()
         {
             float time = TimeManager.Instance.m_currentTime;
@@ -29,6 +31,7 @@ namespace GameManager.Runtime
             _secondDisplay.text = seconds.ToString();
             _millisecondDisplay.text = milliSeconds.ToString();
         }
+
         private void DisplayMalus()
         {
             _malusTimer += Time.deltaTime;
@@ -39,6 +42,7 @@ namespace GameManager.Runtime
             _isMalusVisible = false;
             _malusTimer = 0;
         }
+
         private void ActivateMalusDisplay()
         {
             _isMalusVisible = true;
@@ -49,6 +53,7 @@ namespace GameManager.Runtime
             _endMenu.SetActive(true);
             _endText.text = EndText;
         }
+
         #endregion
 
 

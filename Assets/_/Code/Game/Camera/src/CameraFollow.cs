@@ -61,7 +61,6 @@ namespace Camera.Runtime
         
         private Transform _target;
         private Vector3 _originPosition;
-        private Vector3 _currentPosition;
         private float _transitionTime;
         private float _currentTime;
 
