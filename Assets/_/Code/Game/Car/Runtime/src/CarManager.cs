@@ -9,6 +9,7 @@ namespace Car.Runtime
 
         public event Action OnPlayEnd;
         public event Action OnRewindEnd;
+        public event Action OnSuccess;
 
         #endregion
         
@@ -68,8 +69,13 @@ namespace Car.Runtime
             StopGhosts();
             
             _currentCarControledIndex++;
-            
+
+            CheckEndOfArray();
+
+            if (_currentCarControledIndex >= _carQuantity) return;
+
             OnPlayEnd?.Invoke();
+
         }
 
         private void ActivateGhosts()
@@ -126,7 +132,13 @@ namespace Car.Runtime
         {
             return _carsPool[_currentCarControledIndex];
         }
-
+        private void CheckEndOfArray()
+        {
+            if (_currentCarControledIndex < _carQuantity) return;
+            
+            OnSuccess?.Invoke();
+            
+        }
         #endregion
         
         

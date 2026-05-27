@@ -20,6 +20,7 @@ namespace GameManager.Runtime
             _carManager.SetRewindSpeed(_rewindSpeed);
             _carManager.OnPlayEnd += OnPlayEndHandler;
             _carManager.OnRewindEnd += OnRewindHandler;
+            _carManager.OnSuccess += OnSuccessHandler;
             TimeManager.Instance.OnEnd += OnTimerEndHandler;
             ChangePhase(Phase.Rest);
         }
@@ -148,6 +149,11 @@ namespace GameManager.Runtime
             _endtext = "Game Over";
             ChangePhase(Phase.End);
         }
+        private void OnSuccessHandler()
+        {
+            _endtext = "Victory !";
+            ChangePhase(Phase.End);
+        }
 
         public void Rewind()
         {
@@ -189,7 +195,7 @@ namespace GameManager.Runtime
         {
             SceneManager.LoadScene(0);
         }
-
+       
         #endregion
 
 
