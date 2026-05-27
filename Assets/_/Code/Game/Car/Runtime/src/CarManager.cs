@@ -21,7 +21,7 @@ namespace Car.Runtime
             
             for (int i = 0; i < _carQuantity; i++)
             {
-                GameObject car = Instantiate(_carPrefab, Vector3.zero, Quaternion.identity);
+                GameObject car = Instantiate(_carPrefabArray[i], Vector3.zero, Quaternion.identity);
                 car.SetActive(false);
                 if (!car.TryGetComponent<PlayerMotion>(out PlayerMotion carControl)) return;
                 carControl.InitializeMission(_destinationCollection[i],_originCollection[i]);
@@ -133,7 +133,7 @@ namespace Car.Runtime
         #region Private and Protected
         
         //TODO : Use multiple prefabs and Bigger Pool;
-        [SerializeField] private GameObject _carPrefab;
+        [SerializeField] private GameObject[] _carPrefabArray;
         
         private GameObject[] _carsPool;
         private int _carQuantity = 5;

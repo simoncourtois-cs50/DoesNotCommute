@@ -243,6 +243,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &370596109 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7482438959990338318, guid: 6fc635f3e99d49143a6aab7c35fccacc, type: 3}
+  m_PrefabInstance: {fileID: 6028695113444826356}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &385362890
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,6 +747,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &1231233623 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8578999937941578913, guid: 6fc635f3e99d49143a6aab7c35fccacc, type: 3}
+  m_PrefabInstance: {fileID: 6028695113444826356}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1249024264 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8595481688073832821, guid: 6fc635f3e99d49143a6aab7c35fccacc, type: 3}
@@ -1532,6 +1542,54 @@ PrefabInstance:
       propertyPath: _restCameraTransform
       value: 
       objectReference: {fileID: 713483816}
+    - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
+      propertyPath: _originObjectList.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
+      propertyPath: '_originObjectList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 370596109}
+    - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
+      propertyPath: '_originObjectList.Array.data[1]'
+      value: 
+      objectReference: {fileID: 385362890}
+    - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
+      propertyPath: '_originObjectList.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1797410353}
+    - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
+      propertyPath: '_originObjectList.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1530436666}
+    - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
+      propertyPath: '_originObjectList.Array.data[4]'
+      value: 
+      objectReference: {fileID: 933297103}
+    - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
+      propertyPath: _destinationObjectList.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
+      propertyPath: '_destinationObjectList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1231233623}
+    - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
+      propertyPath: '_destinationObjectList.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1876081890}
+    - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
+      propertyPath: '_destinationObjectList.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1961154083}
+    - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
+      propertyPath: '_destinationObjectList.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1811315217}
+    - target: {fileID: 832195970902661756, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
+      propertyPath: '_destinationObjectList.Array.data[4]'
+      value: 
+      objectReference: {fileID: 1582988613}
     - target: {fileID: 1077244349935274641, guid: a614fa576aa1d0c4f86b03cd7d79de96, type: 3}
       propertyPath: m_LocalPosition.x
       value: -21.84673
@@ -1593,6 +1651,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5444633637394128758, guid: 13bdc3ec8878ae645bc2c20761fb921e, type: 3}
+      propertyPath: _carPrefab
+      value: 
+      objectReference: {fileID: 793685457875359081, guid: 9c92406c14c380849bca38280c133c64, type: 3}
     - target: {fileID: 5444633637394128758, guid: 13bdc3ec8878ae645bc2c20761fb921e, type: 3}
       propertyPath: '_originCollection.Array.data[0]'
       value: 

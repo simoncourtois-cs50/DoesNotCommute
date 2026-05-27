@@ -19,12 +19,6 @@ namespace Car.Runtime
         {
             _rigidbody = GetComponent<Rigidbody>();
             //TODO : Personnalize with Scriptable Object for different type of vehicle
-            _rigidbody.linearDamping = 1.5f;
-            _rigidbody.angularDamping = 3.5f;
-            _rigidbody.mass = 10f;
-            _maxSpeed = 420f;
-            _accelerationValue = 200f;
-            _rotationSpeed = 400f;
             _moveAction = InputSystem.actions.FindAction("Move");
             _currentSpeed = 0;
         }
@@ -87,11 +81,11 @@ namespace Car.Runtime
         #region private and protected
 
         [Header("Parameters")]
-        [Range(400,500),SerializeField]
+        [Range(100,500),SerializeField]
         private float _maxSpeed;
-        [Range(200,400f),SerializeField]
+        [Range(50,400f),SerializeField]
         private float _accelerationValue;
-        [Range(400,500), SerializeField]
+        [Range(100,500), SerializeField]
         private float _rotationSpeed;
 
         private float _currentSpeed;
