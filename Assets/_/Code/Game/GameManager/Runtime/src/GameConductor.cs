@@ -1,7 +1,7 @@
 using Camera.Runtime;
 using Car.Runtime;
-using System.Collections.Generic;
 using Timer.Runtime;
+using UI.Runtime;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -17,6 +17,7 @@ namespace GameManager.Runtime
 
         private void Start()
         {
+            _carManager.InitializePool(_carQuantity, _originObjectList, _destinationObjectList);
             _carManager.SetRewindSpeed(_rewindSpeed);
             _carManager.OnPlayEnd += OnPlayEndHandler;
             _carManager.OnRewindEnd += OnRewindHandler;
@@ -57,7 +58,7 @@ namespace GameManager.Runtime
                     _carManager.ActivateCarControl();
 
                     ResetCameraToPlayer(_playCameraDistance);
-
+                    ActivateDirectionalArrow();
                     TimeManager.Instance.StartChrono();
                     TimeManager.Instance.PlayTimer();
 
@@ -78,6 +79,7 @@ namespace GameManager.Runtime
                     break;
             }
         }
+
 
         private void OnStayPhase()
         {
@@ -108,9 +110,10 @@ namespace GameManager.Runtime
                 case Phase.Play:
                     DeactivateRewindButton();
                     DeActivateMission();
+                    DeActivateDirectionalArrow();
                     break;
                 case Phase.Rewind:
-                    TimeManager.Instance.SetTimerAfterRewind();
+                    
                     break;
                 case Phase.End:
                     break;
@@ -176,14 +179,24 @@ namespace GameManager.Runtime
         private void ActivateMission()
         {
             _currentIndex = _carManager.GetCurrentIndex();
-            _originObjectList[_currentIndex].SetActive(true);
-            _destinationObjectList[_currentIndex].SetActive(true);
+            _originObjectList[CurrentIndex].SetActive(true);
+            _destinationObjectList[CurrentIndex].SetActive(true);
         }
         private void DeActivateMission()
         {
-            _originObjectList[_currentIndex].SetActive(false);
-            _destinationObjectList[_currentIndex].SetActive(false);
+            _originObjectList[CurrentIndex].SetActive(false);
+            _destinationObjectList[CurrentIndex].SetActive(false);
         }
+        private void ActivateDirectionalArrow()
+        {
+            _directionalArrow.gameObject.SetActive(true);
+            _directionalArrow.SetParameters(_destinationObjectList[CurrentIndex].transform, _currentCar);
+        }
+        private void DeActivateDirectionalArrow()
+        {
+            _directionalArrow.gameObject.SetActive(false);
+        }
+
         private void ResetCameraToPlayer(float distance)
         {
             _currentCar = _carManager.GetCurrentCar().transform;
@@ -208,8 +221,9 @@ namespace GameManager.Runtime
         [SerializeField] private Button _RewindButton;
         [SerializeField] Transform _restCameraTransform;
         [SerializeField] private CameraFollow _cameraFollow;
-        [SerializeField] private List<GameObject> _originObjectList;
-        [SerializeField] private List<GameObject> _destinationObjectList;
+        [SerializeField] private GameObject[] _originObjectList;
+        [SerializeField] private GameObject[] _destinationObjectList;
+        [SerializeField] private DirectionalArrow _directionalArrow;
 
         [Header("Rewind Speed")]
         [SerializeField] private float _rewindSpeed;
@@ -221,9 +235,17 @@ namespace GameManager.Runtime
         [SerializeField] float _restCameraDistance;
         [SerializeField] private float _rewindResetCameraDistance;
 
+        [Header("Car Pool")]
+        [SerializeField] private int _carQuantity;
+
         private InputAction _continueInput;
         private Transform _currentCar;
         private int _currentIndex;
+        private int CurrentIndex
+        {
+            get { return _currentIndex % (_carQuantity - 1); }
+            set { _currentIndex = value; }
+        }
         private string _endtext;
         private enum Phase
         {

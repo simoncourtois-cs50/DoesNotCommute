@@ -14,30 +14,28 @@ namespace Car.Runtime
         #endregion
         
         
-        #region Unity API
-
-        private void Awake()
+        #region Main API
+        public void InitializePool(int carQuantity, GameObject[] originCollection, GameObject[] destinationCollection)
         {
-            _carsPool = new GameObject[_carQuantity];
-            
-            for (int i = 0; i < _carQuantity; i++)
+            _carsPool = new GameObject[carQuantity];
+
+            for (int i = 0; i < carQuantity; i++)
             {
-                GameObject car = Instantiate(_carPrefabArray[i], Vector3.zero, Quaternion.identity);
+                GameObject carPrefab = _carPrefabArray[i % _carPrefabArray.Length];
+                GameObject destination = destinationCollection[i % _carPrefabArray.Length];
+                GameObject origin = originCollection[i % _carPrefabArray.Length];
+
+                GameObject car = Instantiate(carPrefab, Vector3.zero, Quaternion.identity);
                 car.SetActive(false);
 
                 if (!car.TryGetComponent<PlayerMotion>(out PlayerMotion carControl)) return;
+                if (!destination.TryGetComponent<Collider>(out Collider destinationCollider)) return;
 
-                carControl.InitializeMission(_destinationCollection[i],_originCollection[i]);
+                carControl.InitializeMission(destinationCollider, origin.transform);
                 carControl.OnDestinationReached += HandleOnDestinationReached;
                 _carsPool[i] = car;
             }
         }
-
-        #endregion
-        
-        
-        #region Main API
-
         public void ActivateCarControl()
         {
             
@@ -75,7 +73,7 @@ namespace Car.Runtime
 
             CheckEndOfArray();
 
-            if (_currentCarControledIndex >= _carQuantity) return;
+            if (_currentCarControledIndex >= _carsPool.Length) return;
 
             OnPlayEnd?.Invoke();
         }
@@ -137,9 +135,14 @@ namespace Car.Runtime
 
         private void CheckEndOfArray()
         {
-            if (_currentCarControledIndex < _carQuantity) return;
+            if (_currentCarControledIndex < _carsPool.Length) return;
             
             OnSuccess?.Invoke();
+        }
+
+        public void SetMission(Collider destination, Transform origin)
+        {
+            _currentPlayerController.InitializeMission(destination, origin);
         }
 
         #endregion
@@ -148,13 +151,8 @@ namespace Car.Runtime
         #region Private and Protected
        
         [SerializeField] private GameObject[] _carPrefabArray;
-        //TODO : Protect the minimum possible = _carQuantity;
-        [SerializeField] private Transform[] _originCollection;
-        [SerializeField] private Collider[] _destinationCollection;
-        
-        private GameObject[] _carsPool;
-        private int _carQuantity = 5;
 
+        private GameObject[] _carsPool;
         private float _rewindSpeed;
 
         // Current Car

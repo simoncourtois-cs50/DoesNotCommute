@@ -9,6 +9,7 @@ namespace Timer.Runtime
 
         public bool m_isPlaying { get; private set; }
         public float m_currentTime { get; private set; }
+
         public event Action OnPause;
         public event Action OnPlay;
         public event Action OnEnd;
@@ -83,13 +84,14 @@ namespace Timer.Runtime
 
             if (m_currentTime < _startStamp) return;
             
-            m_currentTime = _startStamp;
+           
             m_isPlaying = false;
             _isRewinding = false;
+            SetTimerAfterRewind();
         }
         public void SetTimerAfterRewind()
         {
-            m_currentTime = _startStamp - 1;
+            m_currentTime = _startStamp - 1f;
         }
         
         private void CheckEndGame()
